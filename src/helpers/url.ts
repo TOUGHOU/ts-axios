@@ -52,7 +52,7 @@ export function buildUrl(url: string, params?: any): string {
       url = url.slice(0, findIndex)
     }
 
-    url += url.indexOf('?') === -1 ? '?' : '&' + serializedParams
+    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
   }
 
   return url
