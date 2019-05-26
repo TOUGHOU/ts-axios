@@ -34,11 +34,30 @@ router.get('/simple/get', function (req, res) {
 })
 
 router.get('/base/get', function (req, res) {
-  res.json(req.query)
+  setTimeout(() => {
+    res.json(req.query)
+  }, 5000)
 })
 
 router.post("/base/post", function (req, res) {
   res.json(req.body)
+})
+
+router.get('/error/timeout', function (req, res) {
+  setTimeout(() => {
+    res.json(req.query)
+  }, 5000)
+})
+
+router.get('/error/network', function (req, res) {
+  setTimeout(() => {
+    res.json(req.query)
+  }, 5000)
+})
+
+router.post("/err/post500", function (req, res) {
+  res.status(500)
+  res.end()
 })
 
 app.use(router)

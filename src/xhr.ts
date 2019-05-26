@@ -1,5 +1,7 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types'
 import { parseHeaders } from './helpers/headers'
+import { createError } from './helpers/error'
+import { request } from 'https'
 
 function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
@@ -9,16 +11,18 @@ function xhr(config: AxiosRequestConfig): AxiosPromise {
       xhr.responseType = responesType
     }
 
+    if (timeout) {
+      xhr.timeout = timeout
+    }
+
     xhr.open(method.toUpperCase(), url, true)
 
     xhr.onerror = function() {
-      reject(new Error('Network Error'))
+      reject(createError('Network Error', config, null, xhr))
     }
 
-    if (timeout) {
-      xhr.ontimeout = function() {
-        reject(new Error(`Timeout of ${timeout} ms exceeded`))
-      }
+    xhr.ontimeout = function() {
+      reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', xhr))
     }
 
     xhr.onreadystatechange = function(status) {
@@ -58,7 +62,15 @@ function xhr(config: AxiosRequestConfig): AxiosPromise {
       if (response.status >= 200 && response.status < 300) {
         resolve(response)
       } else {
-        reject(new Error(`Requset failed with status code ${response.status}`))
+        reject(
+          createError(
+            `Requset failed with status code ${response.status}`,
+            config,
+            null,
+            xhr,
+            response
+          )
+        )
       }
     }
   })
