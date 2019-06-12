@@ -1,7 +1,6 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types'
-import { parseHeaders } from './helpers/headers'
-import { createError } from './helpers/error'
-import { request } from 'https'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
+import { parseHeaders } from '../helpers/headers'
+import { createError } from '../helpers/error'
 
 function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
@@ -15,7 +14,7 @@ function xhr(config: AxiosRequestConfig): AxiosPromise {
       xhr.timeout = timeout
     }
 
-    xhr.open(method.toUpperCase(), url, true)
+    xhr.open(method.toUpperCase(), url!, true)
 
     xhr.onerror = function() {
       reject(createError('Network Error', config, null, xhr))
