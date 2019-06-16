@@ -1,7 +1,7 @@
 import { AxiosPromise, AxiosRequestConfig, Method } from "../types";
-import {dispatchRequest} from './dispatchRequest';
+import dispatchRequest from './dispatchRequest';
 
-class Axios {
+export default class Axios {
   request(config: AxiosRequestConfig): AxiosPromise {
     return dispatchRequest(config)
   }
@@ -22,17 +22,31 @@ class Axios {
     return this._requestMethodWithoutData("options", url, config)
   }
 
-  // post(){}
+  post(url: string, data: any, config: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithData("post", url, data, config)
+  }
 
-  // put(){}
+  put(url: string, data: any, config: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithData("put", url, data, config)
+  }
 
-  // patch(){}
+  patch(url: string, data: any, config: AxiosRequestConfig): AxiosPromise {
+    return this._requestMethodWithData("patch", url, data, config)
+  }
 
 
-  _requestMethodWithoutData(method: Method, url: string, config: AxiosRequestConfig) {
-    return dispatchRequest(Object.assign({}, config, {
+  _requestMethodWithoutData(method: Method, url: string, config: AxiosRequestConfig): AxiosPromise {
+    return request(Object.assign({}, config, {
       method,
       url
+    }))
+  }
+
+  _requestMethodWithData(method: Method, url: string, data?: any, config: AxiosRequestConfig): AxiosPromise {
+    return request(Object.assign({}, config, {
+      method,
+      url,
+      data
     }))
   }
 }

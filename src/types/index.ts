@@ -19,7 +19,7 @@ export type Method =
   | 'PATCH'
 
 export interface AxiosRequestConfig {
-  url: string
+  url?: string
   headers?: any
   method?: Method
   params?: any
@@ -65,6 +65,6 @@ export interface Axios {
   patch(url: string, config: AxiosRequestConfig, data:any):AxiosPromise
 }
 
-export interface AxioInstance extends Axios {
+export interface AxiosInstance extends Axios {
   (config: AxiosRequestConfig): AxiosPromise
 }
