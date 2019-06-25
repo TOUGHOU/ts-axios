@@ -1,6 +1,6 @@
 import { request } from 'http'
 import { config } from 'shelljs'
-import { puts } from 'util';
+import { puts } from 'util'
 
 export type Method =
   | 'get'
@@ -48,21 +48,21 @@ export interface AxiosError extends Error {
 }
 
 export interface Axios {
-  request(config: AxiosRequestConfig):AxiosPromise
+  request(config: AxiosRequestConfig): AxiosPromise
 
-  get(url: string, config: AxiosRequestConfig):AxiosPromise 
+  get(url: string, config?: AxiosRequestConfig): AxiosPromise
 
-  head(url: string, config: AxiosRequestConfig):AxiosPromise 
+  head(url: string, config?: AxiosRequestConfig): AxiosPromise
 
-  delete(url: string, config: AxiosRequestConfig):AxiosPromise
-  
-  options(url: string, config: AxiosRequestConfig):AxiosPromise
+  delete(url: string, config?: AxiosRequestConfig): AxiosPromise
 
-  put(url: string, config: AxiosRequestConfig, data:any):AxiosPromise 
+  options(url: string, config?: AxiosRequestConfig): AxiosPromise
 
-  post(url: string, config: AxiosRequestConfig, data:any):AxiosPromise
-  
-  patch(url: string, config: AxiosRequestConfig, data:any):AxiosPromise
+  put(url: string, config?: AxiosRequestConfig, data?: any): AxiosPromise
+
+  post(url: string, config?: AxiosRequestConfig, data?: any): AxiosPromise
+
+  patch(url: string, config?: AxiosRequestConfig, data?: any): AxiosPromise
 }
 
 export interface AxiosInstance extends Axios {

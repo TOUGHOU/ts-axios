@@ -27,38 +27,11 @@ app.use(bodyParser.urlencoded({
 
 const router = express.Router()
 
-router.get('/simple/get', function (req, res) {
-  res.json({
-    msg: `hello world`
-  })
-})
+registerSimpleAndBase()
 
-router.get('/base/get', function (req, res) {
-  setTimeout(() => {
-    res.json(req.query)
-  }, 5000)
-})
+registerErrorApi()
 
-router.post("/base/post", function (req, res) {
-  res.json(req.body)
-})
-
-router.get('/error/timeout', function (req, res) {
-  setTimeout(() => {
-    res.json(req.query)
-  }, 5000)
-})
-
-router.get('/error/network', function (req, res) {
-  setTimeout(() => {
-    res.json(req.query)
-  }, 5000)
-})
-
-router.post("/err/post500", function (req, res) {
-  res.status(500)
-  res.end()
-})
+registerExtendApi()
 
 app.use(router)
 
@@ -66,3 +39,64 @@ const port = process.env.PORT || 8080
 module.exports = app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}, Ctrl+C to stop`)
 })
+
+function registerSimpleAndBase() {
+  router.get('/simple/get', function (req, res) {
+    res.json({
+      msg: `hello world`
+    })
+  })
+
+  router.get('/base/get', function (req, res) {
+    setTimeout(() => {
+      res.json(req.query)
+    }, 5000)
+  })
+
+  router.post("/base/post", function (req, res) {
+    res.json(req.body)
+  })
+}
+
+function registerErrorApi() {
+  router.get('/error/timeout', function (req, res) {
+    setTimeout(() => {
+      res.json(req.query)
+    }, 5000)
+  })
+
+  router.get('/error/network', function (req, res) {
+    setTimeout(() => {
+      res.json(req.query)
+    }, 5000)
+  })
+
+  router.post("/err/post500", function (req, res) {
+    res.status(500)
+    res.end()
+  })
+}
+
+function registerExtendApi() {
+  router.get("/extend/get", function (req, res) {
+
+  })
+  router.put("/extend/put", function (req, res) {
+
+  })
+  router.post("/extend/post", function (req, res) {
+
+  })
+  router.delete("/extend/delete", function (req, res) {
+
+  })
+  router.options("/extend/options", function (req, res) {
+
+  })
+  router.head("/extend/head", function (req, res) {
+
+  })
+  router.patch("/extend/patch", function (req, res) {
+
+  })
+}
