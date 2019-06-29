@@ -79,11 +79,20 @@ function registerErrorApi() {
 
 function registerExtendApi() {
   router.get("/extend/get", function (req, res) {
-
+    res.send("/extend/get")
   })
   router.put("/extend/put", function (req, res) {
 
   })
+
+  router.post("/extend/hello", function (req, res) {
+    res.send("/extend/hello")
+  })
+
+  router.post("/extend/world", function (req, res) {
+    res.send("/extend/world")
+  })
+
   router.post("/extend/post", function (req, res) {
 
   })
