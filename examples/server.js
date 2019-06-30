@@ -108,4 +108,15 @@ function registerExtendApi() {
   router.patch("/extend/patch", function (req, res) {
 
   })
+
+  router.get("/extend/user", function (req, res) {
+    res.json({
+      code: 0,
+      message: "ok",
+      result: {
+        name: "kkk",
+        age: 101
+      }
+    })
+  })
 }
