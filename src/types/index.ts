@@ -1,7 +1,3 @@
-import { request } from 'http'
-import { config } from 'shelljs'
-import { puts } from 'util'
-
 export type Method =
   | 'get'
   | 'GET'
