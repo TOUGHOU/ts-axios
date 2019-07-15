@@ -17,7 +17,6 @@ export default class InterceptorManager<T> {
       resolved,
       rejected
     })
-
     return this.interceptors.length - 1
   }
 
@@ -30,7 +29,7 @@ export default class InterceptorManager<T> {
   }
 
   eject(id: number): void {
-    if (!this.interceptors[id]) {
+    if (this.interceptors[id]) {
       this.interceptors[id] = null
     }
   }

@@ -1,5 +1,4 @@
 import axios from '../../src/index'
-import { Agent } from 'http'
 
 axios.get('/extend/get')
 
