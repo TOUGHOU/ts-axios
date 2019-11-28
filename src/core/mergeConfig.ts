@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from '../types'
-
+import {isPlainObject, deepMerge} from "../helpers/utils";
 const strategies = Object.create(null)
 
 function defaultStrategy(val1: any, val2: any): any {
@@ -12,7 +12,19 @@ function onlyValue2Strategy(val1: any, val2: any): any {
   }
 }
 
-const strategyKeys = ['header', 'data', 'url']
+function deepMergeStrategy(val1: any, val2: any): any {
+  if (isPlainObject(val2)) {
+    return deepMerge(val1, val2)
+  } else if (typeof val2 === "undefined") {
+    return val1
+  } else  if (isPlainObject(val1)) {
+    return deepMerge(val1)
+  } else if(typeof val1 === "undefined"){
+    return val1
+  }
+}
+
+const strategyKeys = ['params', 'data', 'url']
 strategyKeys.forEach(key => {
   strategies[key] = onlyValue2Strategy
 })

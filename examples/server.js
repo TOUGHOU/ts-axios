@@ -50,6 +50,7 @@ function registerInterceptors() {
 
 function registerSimpleAndBase() {
   router.get('/simple/get', function (req, res) {
+    res.header('Access-Control-Allow-Origin', '*');
     res.json({
       msg: `hello world`
     })
