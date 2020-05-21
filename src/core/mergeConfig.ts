@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from '../types'
-import {isPlainObject, deepMerge} from "../helpers/utils";
+import { isPlainObject, deepMerge } from '../helpers/utils'
 const strategies = Object.create(null)
 
 function defaultStrategy(val1: any, val2: any): any {
@@ -15,11 +15,11 @@ function onlyValue2Strategy(val1: any, val2: any): any {
 function deepMergeStrategy(val1: any, val2: any): any {
   if (isPlainObject(val2)) {
     return deepMerge(val1, val2)
-  } else if (typeof val2 === "undefined") {
+  } else if (typeof val2 === 'undefined') {
     return val1
-  } else  if (isPlainObject(val1)) {
+  } else if (isPlainObject(val1)) {
     return deepMerge(val1)
-  } else if(typeof val1 === "undefined"){
+  } else if (typeof val1 === 'undefined') {
     return val1
   }
 }
@@ -37,6 +37,8 @@ function mergeConfig(
     config2 = {}
   }
 
+  const config = Object.create(null)
+
   for (let key in config2) {
     mergeFeild(key)
   }
@@ -46,8 +48,6 @@ function mergeConfig(
       mergeFeild(key)
     }
   }
-
-  const config = Object.create(null)
 
   function mergeFeild(key: string): void {
     const strat = strategies[key] || defaultStrategy
