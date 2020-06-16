@@ -16,7 +16,6 @@ function normalizedName(headers: any, normalizedName: string): void {
 
 export function processHeaders(headers: any, data: any): any {
   normalizedName(headers, 'Content-Type')
-
   if (isPlainObject(data)) {
     if (headers && !headers['Content-Type']) {
       headers['Content-Type'] = 'application/json;charset=utf-8'
@@ -54,7 +53,7 @@ export function flattenHeaders(headers: any, method: Method): any {
   if (!headers) {
     return
   }
-
+  console.log(headers.common, headers[method])
   headers = deepMerge(headers.common, headers[method], headers)
 
   const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']

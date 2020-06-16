@@ -2,7 +2,6 @@ import axios from '../../src/index'
 import qs from 'qs'
 
 axios.defaults.headers.common['test2'] = 123
-console.log(axios.defaults.headers)
 axios({
   url: '/config/post',
   method: 'post',
