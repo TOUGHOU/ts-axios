@@ -126,10 +126,6 @@ function registerExtendApi() {
 
 function registerCondigApi() {
   router.post('/config/post', function(req, res) {
-    res.json({
-      code: 0,
-      message: 'ok',
-      result: 'config ok'
-    })
+    res.json(req.body)
   })
 }
