@@ -1,10 +1,11 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
+import { request } from 'http'
 
 function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { data = null, url, method = 'get', headers, responesType, timeout } = config
+    const { data = null, url, method = 'get', headers, responesType, timeout, cancelToken } = config
     const xhr = new XMLHttpRequest()
     if (responesType) {
       xhr.responseType = responesType
@@ -54,6 +55,13 @@ function xhr(config: AxiosRequestConfig): AxiosPromise {
         xhr.setRequestHeader(name, headers[name])
       }
     })
+
+    if (cancelToken) {
+      cancelToken.promise.then(reason => {
+        xhr.abort()
+        reject(reason)
+      })
+    }
 
     xhr.send(data)
 
