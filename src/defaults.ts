@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from './types'
 import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
+
 const defaults: AxiosRequestConfig = {
   method: 'get',
 
@@ -9,6 +10,9 @@ const defaults: AxiosRequestConfig = {
       Accept: 'application/json, text/plain/, */*'
     }
   },
+
+  xsrfCookiName: 'XSRF-COOKIE',
+  xsrfHeaderName: 'X-XSRF-COOKIE',
 
   transformRequest: [
     function(data: any, headers: any): any {
@@ -21,7 +25,11 @@ const defaults: AxiosRequestConfig = {
     function(data: any): any {
       return transformResponse(data)
     }
-  ]
+  ],
+
+  validateStatus(status: number): boolean {
+    return status >= 200 && status < 300
+  }
 }
 
 const methodWithoutData = ['get', 'delete', 'head', 'options']
